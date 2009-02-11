@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<br>
+<h4 align="center">{% trans "My profile" %}</h4>
+<p>
+	<strong>
+		<a href="{% url edit-profile %}">{% trans "Edit profile" %}</a>&nbsp;|&nbsp;
+		<a href="{% url auth_password_change %}">{% trans "Edit email & password" %}</a>
+	</strong>
+</p>
+<p>{% trans "Welcome" %}&nbsp;{{user.first_name}}&nbsp;{{user.last_name}}&nbsp;({{user}})</p>
+<p>{% trans "My data" %}:</p>
+<p>{% trans "E-mail" %}:&nbsp;{{user.email}}</p>
+<p>{% trans "Last login" %}:&nbsp;{{user.last_login}}</p>
+<p>{% trans "Joined" %}:&nbsp;{{user.date_joined}}</p>
+{% endblock %}

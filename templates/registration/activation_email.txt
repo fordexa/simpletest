@@ -1,0 +1,12 @@
+{% load i18n %}
+{% blocktrans %}
+Hello,
+
+Please follow this link to complete your registration on {{ site }}:
+
+You have {{ expiration_days }} days to complete it.
+
+Sincerely,
+bla-bla-bla
+{% endblocktrans %}
+<a href="http://{{ site}}{% url registration_activate activation_key %}">http://{{site}}{% url registration_activate activation_key %}</a>

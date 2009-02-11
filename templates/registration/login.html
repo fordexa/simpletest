@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<br>
+<div class="forma">
+	<p>{% trans "Login" %}</p>
+	<form method="post" action="./">
+		<table border="0">
+			{{ form }}
+			<tr><td colspan="2" align="center"><input type="submit" value="{% trans 'Login' %}"></td></tr>
+			<tr><td colspan="2" align="center"><a href="{% url auth_password_reset %}">{% trans "Forgot your password?" %}</a></td></tr>
+		</table>
+	</form>
+</div>
+{% endblock %}
