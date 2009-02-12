@@ -1,4 +1,7 @@
-from django.conf.urls.defaults import *
+"""
+URL patterns for manage user account
+"""
+from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('simpletest.profiles.views',
     url(r'^$', 'my_profile', name='my-profile'),
