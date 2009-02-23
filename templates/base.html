@@ -2,7 +2,6 @@
 {% load i18n %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>{% block title %}User login/registration/rescue process{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">
 		div.forma {
@@ -17,7 +16,7 @@
 			border: 2px double black;
 		}
 	</style>
-	{% block scripts %}{% endblock %}
+	{% block header %}{% endblock %}
 </head>
 <body>
 	<h2 align="center"><a href="{% url index %}" style="text-decoration: none; color: black;">{% trans "Test project" %}</a></h2>
@@ -27,8 +26,24 @@
 				<a href="{% url my-profile %}">{% trans "Profile" %}</a>&nbsp;
 				<a href="{% url auth_logout %}">{% trans "Work off" %}</a>
 		{% else %}
-			<a href="{% url auth_login %}">{% trans "Login" %}</a>&nbsp;
-			<a href="{% url registration_register %}">{% trans "Register" %}</a>
+			{% if request.session.webauthtoken %}
+				{% trans "You are signed in using LiveID" %}&nbsp;
+				<iframe 
+				    id="WebAuthControl" 
+				    name="WebAuthControl" 
+				    src="{{ wll_login_settings.CONTROLURL }}?appid={{ wllappid }}"
+				    width="80px"
+				    height="20px"
+				    marginwidth="0"
+				    marginheight="0"
+				    align="middle"
+				    frameborder="0"
+				    scrolling="no">
+			   </iframe>
+			{% else %}
+				<a href="{% url auth_login %}">{% trans "Login" %}</a>&nbsp;
+				<a href="{% url registration_register %}">{% trans "Register" %}</a>
+			{% endif %}
 		{% endif %}
 	</h5>
 	<div>{% block content %}{% endblock %}</div>

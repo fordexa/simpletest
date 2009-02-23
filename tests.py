@@ -158,3 +158,29 @@ def test_profile():
     go(SITE + '/accounts/profile/')
     code(404)
     return
+
+@with_setup(setup)
+def test_google_auth():
+    """
+    Test google authentication
+    """
+    go(SITE + '/services/google/')
+    formvalue(1, 'email', 'foo.bar@gmail.mail')
+    formvalue(1, 'password', 'foobar')
+    submit()
+    code(200)
+    find('foo.bar@gmail.mail')
+    return
+
+@with_setup(setup)
+def test_liveid():
+    """
+    Test liveid authentication
+    """
+    
+    from WindowsLiveLogin import WindowsLiveLogin
+    
+    wll = WindowsLiveLogin.initFromXml('services/liveid/Application-Key.xml')
+    go(wll.getAppLoginUrl())
+    code(200)
+    return

@@ -1,16 +1,77 @@
-{% extends 'base.html' %}
-{% load i18n %}
+{% extends "base.html" %}
+
+{% block header %}
+
+<script type="text/javascript" src="{{MEDIA_URL}}js/jquery/jquery.js" ></script>  
+
+<script>
+	$(document).ready(function() { 
+		$('#id_email').focus();
+	});
+	
+	var prev_login = "member";
+	
+	function toggle(id) {
+		$('div#' + prev_login).hide();
+		$('div#' + id).show('slow');
+		prev_login = id;
+	}
+</script>
+{% endblock header %}
 
 {% block content %}
-<br>
-<div class="forma">
-	<p>{% trans "Login" %}</p>
-	<form method="post" action="./">
-		<table border="0">
-			{{ form }}
-			<tr><td colspan="2" align="center"><input type="submit" value="{% trans 'Login' %}"></td></tr>
-			<tr><td colspan="2" align="center"><a href="{% url auth_password_reset %}">{% trans "Forgot your password?" %}</a></td></tr>
-		</table>
+
+<h1>Login</h1>
+
+<div style="float: left; padding-right: 30px;">
+	Using:<br>
+	<a href="javascript:toggle('member')"><img src="{{MEDIA_URL}}img/member.jpeg"></a>
+	<br>
+	<a href="javascript:toggle('google')"><img src="{{MEDIA_URL}}img/google.jpeg"></a>
+	<br>
+	<a href="javascript:toggle('wll')"><img src="{{MEDIA_URL}}img/WL_flag.gif"></a>
+	<br><br><br><br><br><br>
+</div>
+
+<div id="member">
+	<form method="POST">
+		<h2>Member login</h2>
+		<table>{{form}}</table>
+		<input type="submit" value="Login">
+		<br>
+		Forgot password ? - <a href="{% url auth_password_reset %}">Click here</a>
+		<br>
+		Do not have account ? - <a href="{% url registration_register %}">Create new one</a>
 	</form>
 </div>
-{% endblock %}
+
+<div id="google" style="display:none;">
+	<h2>Google ID</h2>
+	<form method="POST" action="{% url google-auth %}">
+		<table>
+			<tr><th>Email:</th><td><input type="email" name="email"></td></tr>
+			<tr><th>Password:</th><td><input type="password" name="password"></td></tr>
+		</table>
+		<input type="submit" value="Login">
+	</form>
+</div>
+
+<div id="wll" style="display:none;">
+	<h2>Windows LiveID</h2>
+	<iframe 
+     id="WebAuthControl" 
+     name="WebAuthControl" 
+     src="{{ wll_login_settings.CONTROLURL }}?appid={{ wllappid }}"
+     width="80px"
+     height="20px"
+     marginwidth="0"
+     marginheight="0"
+     align="middle"
+     frameborder="0"
+     scrolling="no">
+   </iframe>
+
+</div>
+
+
+{% endblock content %}

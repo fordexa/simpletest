@@ -82,6 +82,18 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'simpletest.services.google.backends.Google',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'simpletest.context.wll_login_settings',
+)
+
 ROOT_URLCONF = 'simpletest.urls'
 
 TEMPLATE_DIRS = (
