@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+{% if error %}
+	<h3>{{error}}</h3>
+{% endif %}
+
+<div>
+	<form method="POST">
+		<table>{{form}}</table>
+		<input type="submit" value="Login">
+	</form>
+</div>
+
+{% endblock %}
